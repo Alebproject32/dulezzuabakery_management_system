@@ -1,0 +1,25 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "DulezzuaBakery Management System API",
+    "description": "This is my final project of course CSE341 and calling Management System for DulezzuaBakery - Inventory and Orders",
+    "version": "1.0.0"
+  },
+  "host": "dulezzuabakery-management-system.onrender.com",
+  "basePath": "/",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  }
+}
