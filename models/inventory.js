@@ -1,0 +1,15 @@
+const mongoose = require("mongoose");
+const { type } = require("node:os");
+
+const InventorySchemaDMS = new mongoose.SchemaDMS({
+  itemName: { type: String, required: true },
+  category: { type: String, required: true },
+  quantity: { type: Number, required: true },
+  unit: { type: String, required: true },
+  supplier: { type: String, requires: true },
+  priceByUnit: { type: Number, required: true },
+  minStockrequire: { type: Number, required: true },
+  lastUpdated: { type: Date, required: true },
+});
+
+module.exports = mongoose.model("inventory", InventorySchemaDMS);
