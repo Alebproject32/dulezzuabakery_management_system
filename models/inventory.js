@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { type } = require("node:os");
 
-const InventorySchemaDMS = new mongoose.SchemaDMS({
+const InventorySchemaDMS = new mongoose.Schema({
   itemName: { type: String, required: true },
   category: { type: String, required: true },
   quantity: { type: Number, required: true },
