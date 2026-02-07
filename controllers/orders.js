@@ -4,7 +4,7 @@ const Orders = require("../models/orders");
 //First endpoint GET
 const getAllOrdersByMyClients = async (request, response) => {
   try {
-    const ordersByClient = await Order.find();
+    const ordersByClient = await Orders.find();
     response.status(200).json(ordersByClient);
   } catch (err) {
     response.status(500).json({ message: err.message });
@@ -14,7 +14,7 @@ const getAllOrdersByMyClients = async (request, response) => {
 // Second endpoint POST
 const createOrderByMyClients = async (request, response) => {
   try {
-    const newOrderByMyClient = new Order({
+    const newOrderByMyClient = new Orders({
       customerName: request.body.customerName,
       customerEmail: request.body.customerEmail,
       deliveryDate: request.body.deliveryDate,
@@ -50,10 +50,10 @@ const updateOrderByMyClient = async (request, response) => {
       ],
       notes: request.body.notes,
     };
-    const result = await Orders.findByAndIdUpdate(
+    const result = await Orders.findByIdAndUpdate(
       articleId,
-      updateOrderByMyClient,
-      { new: true },
+      updatedOrderByMyClient,
+      { new: true, runValidators: true },
     );
     if (!result)
       return response
