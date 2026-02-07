@@ -10,7 +10,7 @@ const OrderByMyClient = new mongoose.Schema({
   paymentMethod: { type: String, required: true },
   article: [
     {
-      productId: { type: String, required: true },
+      articleId: { type: String, required: true },
       quantity: { type: Number, required: true },
     },
   ],
