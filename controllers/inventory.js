@@ -50,12 +50,12 @@ const updateArticle = async (request, response) => {
       priceByUnit: request.body.priceByUnit,
       minStockrequire: request.body.minStockrequire,
     };
-    const response = await Inventory.findByIdAndUpdate(
+    const result = await Inventory.findByIdAndUpdate(
       articleId,
       updateMyArticleData,
       { new: true },
     );
-    if (!response) {
+    if (!result) {
       return response.status(404).json({
         message: "Make some space, I can't find what I'm looking for",
       });
@@ -74,8 +74,8 @@ const updateArticle = async (request, response) => {
 const deleteArticle = async (request, response) => {
   try {
     const articleId = request.params.id;
-    const response = await Inventory.findByIdAndDelete(articleId);
-    if (!response) {
+    const result = await Inventory.findByIdAndDelete(articleId);
+    if (!result) {
       return response.status(404).json({
         message: "I´m so sorry but I can´t find your article to delete.",
       });
