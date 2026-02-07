@@ -21,6 +21,10 @@ app.get("/", (require, response) =>
   response.send("¡DulezzuaBakery Management System API is running, Amazing!"),
 );
 
+app.post("/", (require, response) =>
+  response.send("Your new Article was created."),
+);
+
 app.listen(port, () => {
   console.log(`I can see the server is running on port ${port}`);
 });
