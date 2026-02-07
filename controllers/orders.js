@@ -14,7 +14,19 @@ const getAllOrdersByMyClients = async (request, response) => {
 // Second endpoint POST
 const createOrderByMyClients = async (request, response) => {
   try {
-    const newOrderByMyClient = new Order(request.body);
+    const newOrderByMyClient = new Order({
+      customerName: request.body.customerName,
+      customerEmail: request.body.customerEmail,
+      deliveryDate: request.body.deliveryDate,
+      totalAmount: request.body.totalAmount,
+      orderStatus: request.body.orderStatus,
+      paymentMethod: request.body.paymentMethod,
+      article: [
+        { articleId: request.body.articleId, quantity: request.body.quantity },
+      ],
+      notes: request.body.notes,
+    });
+
     const savedOrderByMyClient = await newOrderByMyClient.save();
     response.status(201).json(savedOrderByMyClient);
   } catch (err) {
@@ -25,12 +37,25 @@ const createOrderByMyClients = async (request, response) => {
 // Third endpoint PUT to update any information in my orders of DulezzuaBakery Management System
 const updateOrderByMyClient = async (request, response) => {
   try {
-    const updatedOrderByMyClient = await Order.findByIdAndUpdate(
-      request.params.id,
-      request.body,
+    const articleId = request.params.id;
+    const updatedOrderByMyClient = {
+      customerName: request.body.customerName,
+      customerEmail: request.body.customerEmail,
+      deliveryDate: request.body.deliveryDate,
+      totalAmount: request.body.totalAmount,
+      orderStatus: request.body.orderStatus,
+      paymentMethod: request.body.paymentMethod,
+      article: [
+        { articleId: request.body.articleId, quantity: request.body.quantity },
+      ],
+      notes: request.body.notes,
+    };
+    const result = await Orders.findByAndIdUpdate(
+      articleId,
+      updateOrderByMyClient,
       { new: true },
     );
-    if (!updatedOrderByMyClient)
+    if (!result)
       return response
         .status(404)
         .json({ message: "Your order was missing because I can´t find it." });
