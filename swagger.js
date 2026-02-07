@@ -10,6 +10,27 @@ const doc = {
   },
   host: "dulezzuabakery-management-system.onrender.com",
   schemes: ["https"],
+  definitions: {
+    Inventory: {
+      itemName: "wheat flour",
+      category: "raw material",
+      quantity: 50,
+      unit: "kg",
+      supplier: "Molinos del Sol",
+      priceByUnit: 1.5,
+      minStockrequire: 10,
+    },
+    Order: {
+      customerName: "Juan Perez",
+      customerEmail: "juan@example.com",
+      deliveryDate: "2026-02-15",
+      totalAmount: 25.0,
+      orderStatus: "Pending",
+      paymentMethod: "Credit Card",
+      article: [{ articleId: "Article_ID", quantity: 2 }],
+      notes: "Deliver in the afternoon",
+    },
+  },
 };
 
 const outputFile = "./swagger.json";

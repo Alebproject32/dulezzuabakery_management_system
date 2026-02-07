@@ -234,5 +234,89 @@
         }
       }
     }
+  },
+  "definitions": {
+    "Inventory": {
+      "type": "object",
+      "properties": {
+        "itemName": {
+          "type": "string",
+          "example": "wheat flour"
+        },
+        "category": {
+          "type": "string",
+          "example": "raw material"
+        },
+        "quantity": {
+          "type": "number",
+          "example": 50
+        },
+        "unit": {
+          "type": "string",
+          "example": "kg"
+        },
+        "supplier": {
+          "type": "string",
+          "example": "Molinos del Sol"
+        },
+        "priceByUnit": {
+          "type": "number",
+          "example": 1.5
+        },
+        "minStockrequire": {
+          "type": "number",
+          "example": 10
+        }
+      }
+    },
+    "Order": {
+      "type": "object",
+      "properties": {
+        "customerName": {
+          "type": "string",
+          "example": "Juan Perez"
+        },
+        "customerEmail": {
+          "type": "string",
+          "example": "juan@example.com"
+        },
+        "deliveryDate": {
+          "type": "string",
+          "example": "2026-02-15"
+        },
+        "totalAmount": {
+          "type": "number",
+          "example": 25
+        },
+        "orderStatus": {
+          "type": "string",
+          "example": "Pending"
+        },
+        "paymentMethod": {
+          "type": "string",
+          "example": "Credit Card"
+        },
+        "article": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "articleId": {
+                "type": "string",
+                "example": "Article_ID"
+              },
+              "quantity": {
+                "type": "number",
+                "example": 2
+              }
+            }
+          }
+        },
+        "notes": {
+          "type": "string",
+          "example": "Deliver in the afternoon"
+        }
+      }
+    }
   }
 }

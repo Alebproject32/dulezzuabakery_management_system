@@ -3,6 +3,7 @@ const express = require("express");
 const router = express.Router();
 const inventoryController = require("../controllers/inventory");
 
+// #swagger.tags = ['Inventory']
 router.get("/", inventoryController.getAllArticles);
 router.post("/", inventoryController.createItemArticle);
 router.put("/:id", inventoryController.updateArticle);
