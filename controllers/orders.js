@@ -1,5 +1,5 @@
 const { response } = require("express");
-const Order = require("../models/orders");
+const Orders = require("../models/orders");
 
 //First endpoint GET
 const getAllOrdersByMyClients = async (request, response) => {
