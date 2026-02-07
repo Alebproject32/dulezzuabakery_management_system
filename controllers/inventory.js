@@ -28,8 +28,8 @@ const createItemArticle = async (require, response) => {
       minStockrequire: require.body.minStockrequire,
     });
 
-    const response = await newArticle.save();
-    response.status(201).json(response);
+    const result = await newArticle.save();
+    response.status(201).json(result);
   } catch (err) {
     response.status(400).json({
       message: "I think your Article was not created: " + err.message,
