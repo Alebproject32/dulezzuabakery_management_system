@@ -19,17 +19,9 @@
             "description": "OK"
           }
         }
-      },
-      "post": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
       }
     },
-    "./inventory/": {
+    "/inventory/": {
       "get": {
         "description": "",
         "produces": [
@@ -88,7 +80,7 @@
         }
       }
     },
-    "./inventory/{id}": {
+    "/inventory/{id}": {
       "put": {
         "description": "",
         "parameters": [
@@ -164,7 +156,7 @@
         }
       }
     },
-    "./orders/": {
+    "/orders/": {
       "get": {
         "description": "",
         "responses": {
@@ -188,7 +180,7 @@
         }
       }
     },
-    "./orders/{id}": {
+    "/orders/{id}": {
       "put": {
         "description": "",
         "parameters": [
