@@ -29,9 +29,9 @@ const createItemArticle = async (require, response) => {
     });
 
     const result = await newArticle.save();
-    response.status(201).json(result);
+    return response.status(201).json(result);
   } catch (err) {
-    response.status(400).json({
+    return response.status(400).json({
       message: "I think your Article was not created: " + err.message,
     });
   }
