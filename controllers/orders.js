@@ -2,7 +2,7 @@ const { response } = require("express");
 const Order = require("../models/orders");
 
 //First endpoint GET
-const getAllOrdersByMyClients = async (require, response) => {
+const getAllOrdersByMyClients = async (request, response) => {
   try {
     const ordersByClient = await Order.find();
     response.status(200).json(ordersByClient);
@@ -12,9 +12,9 @@ const getAllOrdersByMyClients = async (require, response) => {
 };
 
 // Second endpoint POST
-const createOrderByMyClients = async (require, response) => {
+const createOrderByMyClients = async (request, response) => {
   try {
-    const newOrderByMyClient = new Order(require.body);
+    const newOrderByMyClient = new Order(request.body);
     const savedOrderByMyClient = await newOrderByMyClient.save();
     response.status(201).json(savedOrderByMyClient);
   } catch (err) {
@@ -23,11 +23,11 @@ const createOrderByMyClients = async (require, response) => {
 };
 
 // Third endpoint PUT to update any information in my orders of DulezzuaBakery Management System
-const updateOrderByMyClient = async (require, response) => {
+const updateOrderByMyClient = async (request, response) => {
   try {
     const updatedOrderByMyClient = await Order.findByIdAndUpdate(
-      require.params.id,
-      require.body,
+      request.params.id,
+      request.body,
       { new: true },
     );
     if (!updatedOrderByMyClient)
@@ -41,10 +41,10 @@ const updateOrderByMyClient = async (require, response) => {
 };
 
 // Fourth endpoint DELETE of any orders in dulezzuaBakery Management System
-const deleteOrderByMyClient = async (require, response) => {
+const deleteOrderByMyClient = async (request, response) => {
   try {
     const deletedOrderByMyClient = await Order.findByIdAndDelete(
-      require.params.id,
+      request.params.id,
     );
     if (!deletedOrderByMyClient)
       return response.status(404).json({

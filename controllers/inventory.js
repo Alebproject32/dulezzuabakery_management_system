@@ -2,7 +2,7 @@
 const Inventory = require("../models/inventory");
 
 // This is my first Endpoint "GET" as I learned along this course
-const getAllArticles = async (require, response) => {
+const getAllArticles = async (request, response) => {
   // Here I will catch errors from execution
   try {
     const article = await Inventory.find();
@@ -16,16 +16,16 @@ const getAllArticles = async (require, response) => {
 };
 
 // Endpoint "POST" here I will create a new article
-const createItemArticle = async (require, response) => {
+const createItemArticle = async (request, response) => {
   try {
     const newArticle = new Inventory({
-      itemName: require.body.itemName,
-      category: require.body.category,
-      quantity: require.body.quantity,
-      unit: require.body.unit,
-      supplier: require.body.supplier,
-      priceByUnit: require.body.priceByUnit,
-      minStockrequire: require.body.minStockrequire,
+      itemName: request.body.itemName,
+      category: request.body.category,
+      quantity: request.body.quantity,
+      unit: request.body.unit,
+      supplier: request.body.supplier,
+      priceByUnit: request.body.priceByUnit,
+      minStockrequire: request.body.minStockrequire,
     });
 
     const result = await newArticle.save();
@@ -38,17 +38,17 @@ const createItemArticle = async (require, response) => {
 };
 
 // Endpoint "PUT"
-const updateArticle = async (require, response) => {
+const updateArticle = async (request, response) => {
   try {
-    const articleId = require.params.id;
+    const articleId = request.params.id;
     const updateMyArticleData = {
-      itemName: require.body.itemName,
-      category: require.body.category,
-      quantity: require.body.quantity,
-      unit: require.body.unit,
-      supplier: require.body.supplier,
-      priceByUnit: require.body.priceByUnit,
-      minStockrequire: require.body.minStockrequire,
+      itemName: request.body.itemName,
+      category: request.body.category,
+      quantity: request.body.quantity,
+      unit: request.body.unit,
+      supplier: request.body.supplier,
+      priceByUnit: request.body.priceByUnit,
+      minStockrequire: request.body.minStockrequire,
     };
     const response = await Inventory.findByIdAndUpdate(
       articleId,
@@ -71,9 +71,9 @@ const updateArticle = async (require, response) => {
 };
 
 // My Endpoint of "DELETE"
-const deleteArticle = async (require, response) => {
+const deleteArticle = async (request, response) => {
   try {
-    const articleId = require.params.id;
+    const articleId = request.params.id;
     const response = await Inventory.findByIdAndDelete(articleId);
     if (!response) {
       return response.status(404).json({
