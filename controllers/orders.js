@@ -68,7 +68,7 @@ const updateOrderByMyClient = async (request, response) => {
 // Fourth endpoint DELETE of any orders in dulezzuaBakery Management System
 const deleteOrderByMyClient = async (request, response) => {
   try {
-    const deletedOrderByMyClient = await Order.findByIdAndDelete(
+    const deletedOrderByMyClient = await Orders.findByIdAndDelete(
       request.params.id,
     );
     if (!deletedOrderByMyClient)
