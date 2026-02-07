@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const connectDB = require("./db/connect");
 const inventoryRoutes = require("./routes/inventory");
+const ordersController = require("./routes/orders");
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger.json");
 const app = express();
@@ -13,6 +14,8 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // My inventory it´s found here
 app.use("./inventory", inventoryRoutes);
+
+app.use("./orders", ordersController);
 
 connectDB();
 
