@@ -9,7 +9,7 @@ const InventorySchemaDMS = new mongoose.Schema({
   supplier: { type: String, requires: true },
   priceByUnit: { type: Number, required: true },
   minStockrequire: { type: Number, required: true },
-  lastUpdated: { type: Date, required: true },
+  lastUpdated: { type: Date, default: Date.now },
 });
 
 module.exports = mongoose.model("inventory", InventorySchemaDMS);
