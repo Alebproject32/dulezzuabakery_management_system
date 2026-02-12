@@ -18,17 +18,20 @@ router.use("/orders", require("./orders"));
 router.use("/supplies", require("./supplies"));
 router.use("/employees", require("./employees"));
 
-router.get("/logout", function (request, response, next) {
-  request.logout(function (err) {
-    if (err) {
-      return next(err);
-    }
-    response.redirect("/");
-  });
-});
+router.get(
+  "/logout",
+  /* #swagger.tags = ['Auth'] */ function (request, response, next) {
+    request.logout(function (err) {
+      if (err) {
+        return next(err);
+      }
+      response.redirect("/");
+    });
+  },
+);
 
 router.get(
-  "/github/callback",
+  "/github/callback" /* #swagger.tags = ['Auth'] */,
   passport.authenticate("github", {
     failureRedirect: "api-docs",
     session: true,

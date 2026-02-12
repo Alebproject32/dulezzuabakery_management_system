@@ -10,7 +10,20 @@ const doc = {
   },
   host: "dulezzuabakery-management-system.onrender.com",
   schemes: ["https", "http"],
+  securityDefinitions: {
+    Authorization: {
+      type: "apiKey",
+      name: "Authorization",
+      in: "header",
+      description:
+        "Please clic on your GitHub account boton to activate your session.",
+    },
+  },
   tags: [
+    {
+      name: "Auth",
+      description: "My login in Database of DulezzuaBakery Management System",
+    },
     { name: "Inventory", description: "Management of bakery items" },
     { name: "Orders", description: "Customer orders" },
     { name: "Supplies", description: "Raw materials and tools" },

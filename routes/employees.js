@@ -5,6 +5,7 @@ const { isAuthenticated } = require("../middleware/authenticate");
 
 router.get("/", (request, response) => {
   // #swagger.tags = ['Employees']
+  // #swagger.security = [{ "Authorization": [] }]
   employeesController.getAllEmployeesOfDulezzubakery(request, response);
 });
 
@@ -14,6 +15,8 @@ router.post(
   isAuthenticated,
   employeeValidationRules(),
   validate,
+  // #swagger.tags = ['Employees']
+  // #swagger.security = [{ "Authorization": [] }]
   employeesController.createEmployeeToDulezzuabakery,
 );
 router.put(
@@ -21,11 +24,15 @@ router.put(
   isAuthenticated,
   employeeValidationRules(),
   validate,
+  // #swagger.tags = ['Employees']
+  // #swagger.security = [{ "Authorization": [] }]
   employeesController.updateEmployeeDataOfDulezzuabakery,
 );
 router.delete(
   "/:id",
   isAuthenticated,
+  // #swagger.tags = ['Employees']
+  // #swagger.security = [{ "Authorization": [] }]
   employeesController.deleteEmployeeDataOfDulezzuabakery,
 );
 
