@@ -1,0 +1,56 @@
+const Supplies = require("../models/supplies");
+
+const getAllSuppliesToBreadsAndCakes = async (request, response) => {
+  try {
+    const result = await Supplies.find();
+    response.status(200).json(result);
+  } catch (err) {
+    response.status(500).json({ message: err.message });
+  }
+};
+
+const createSupplyToBreadsAndCakes = async (request, response) => {
+  try {
+    const newSupply = new Supplies(request.body);
+    const savedSupply = await newSupply.save();
+    response.status(201).json(savedSupply);
+  } catch (err) {
+    response.status(400).json({ message: err.message });
+  }
+};
+
+const updateSupplyToBreadsAndCakes = async (request, response) => {
+  try {
+    const id = request.params.id;
+    const result = await Supplies.findByIdAndUpdate(id, request.body, {
+      new: true,
+    });
+    if (!result)
+      return response
+        .status(404)
+        .json({ message: "Oops! Supply is not found." });
+    response.status(204).send();
+  } catch (err) {
+    response.status(400).json({ message: err.message });
+  }
+};
+
+const deleteSupplyForever = async (request, response) => {
+  try {
+    const result = await Supplies.findByIdAndDelete(request.params.id);
+    if (!result)
+      return response
+        .status(404)
+        .json({ message: "Wait a minute. Supply is not found." });
+    response.status(204).send();
+  } catch (err) {
+    response.status(500).json({ message: err.message });
+  }
+};
+
+module.exports = {
+  getAllSuppliesToBreadsAndCakes,
+  createSupplyToBreadsAndCakes,
+  updateSupplyToBreadsAndCakes,
+  deleteSupplyForever,
+};

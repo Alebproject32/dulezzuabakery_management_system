@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const ordersController = require("../controllers/orders");
+const { ordersValidationRules, validate } = require("../middleware/validate");
 
 // #swagger.tags = ['Orders']
 /* #swagger.parameters['body'] = {
@@ -9,8 +10,18 @@ const ordersController = require("../controllers/orders");
       schema: { $ref: '#/definitions/Order' }
 } */
 router.get("/", ordersController.getAllOrdersByMyClients);
-router.post("/", ordersController.createOrderByMyClients);
-router.put("/:id", ordersController.updateOrderByMyClient);
+router.post(
+  "/",
+  ordersValidationRules(),
+  validate,
+  ordersController.createOrderByMyClients,
+);
+router.put(
+  "/:id",
+  ordersValidationRules(),
+  validate,
+  ordersController.updateOrderByMyClient,
+);
 router.delete("/:id", ordersController.deleteOrderByMyClient);
 
 module.exports = router;

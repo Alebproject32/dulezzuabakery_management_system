@@ -6,10 +6,10 @@ const doc = {
   info: {
     title: "DulezzuaBakery Management System API",
     description:
-      "This is my final project of course CSE341 and calling Management System for DulezzuaBakery - Inventory and Orders",
+      "This is my final project of course CSE341 and calling Management System for DulezzuaBakery - Inventory, Orders, Supplies and Employees",
   },
   host: "dulezzuabakery-management-system.onrender.com",
-  schemes: ["https"],
+  schemes: ["https", "http"],
   definitions: {
     Inventory: {
       itemName: "wheat flour",
@@ -29,6 +29,24 @@ const doc = {
       paymentMethod: "Credit Card",
       article: [{ articleId: "Article_ID", quantity: 2 }],
       notes: "Deliver in the afternoon",
+    },
+    Supply: {
+      itemName: "Cake Molds",
+      usage: "Baking",
+      quantity: 10,
+      unit: "pieces",
+      supplierName: "Bakery Tools Co.",
+      lastReorderDate: "2026-02-01",
+      isDurable: true,
+    },
+    Employee: {
+      firstName: "Alejandro",
+      lastName: "Perez",
+      email: "alejandro@bakery.com",
+      staffRole: "Pastry Chef",
+      hireDate: "2026-01-15",
+      salaryPerMonth: 2500,
+      phoneNumber: "+58-428-555-0123",
     },
   },
 };
