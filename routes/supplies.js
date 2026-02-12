@@ -3,6 +3,7 @@ const suppliesController = require("../controllers/supplies");
 const { supplyValidationRules, validate } = require("../middleware/validate");
 const { isAuthenticated } = require("../middleware/authenticate");
 
+// #swagger.tags = ['Supplies']
 router.get("/", suppliesController.getAllSuppliesToBreadsAndCakes);
 router.post(
   "/",

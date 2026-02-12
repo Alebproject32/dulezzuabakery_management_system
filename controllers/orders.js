@@ -37,7 +37,7 @@ const createOrderByMyClients = async (request, response) => {
 // Third endpoint PUT to update any information in my orders of DulezzuaBakery Management System
 const updateOrderByMyClient = async (request, response) => {
   try {
-    const articleId = request.params.id;
+    const orderId = request.params.id;
     const updatedOrderByMyClient = {
       customerName: request.body.customerName,
       customerEmail: request.body.customerEmail,
@@ -46,12 +46,12 @@ const updateOrderByMyClient = async (request, response) => {
       orderStatus: request.body.orderStatus,
       paymentMethod: request.body.paymentMethod,
       article: [
-        { articleId: request.body.articleId, quantity: request.body.quantity },
+        { orderId: request.body.articleId, quantity: request.body.quantity },
       ],
       notes: request.body.notes,
     };
     const result = await Orders.findByIdAndUpdate(
-      articleId,
+      orderId,
       updatedOrderByMyClient,
       { new: true, runValidators: true },
     );

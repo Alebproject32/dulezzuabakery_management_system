@@ -2,13 +2,14 @@
   "swagger": "2.0",
   "info": {
     "title": "DulezzuaBakery Management System API",
-    "description": "This is my final project of course CSE341 and calling Management System for DulezzuaBakery - Inventory and Orders",
+    "description": "This is my final project of course CSE341 and calling Management System for DulezzuaBakery - Inventory, Orders, Supplies and Employees",
     "version": "1.0.0"
   },
   "host": "dulezzuabakery-management-system.onrender.com",
   "basePath": "/",
   "schemes": [
-    "https"
+    "https",
+    "http"
   ],
   "paths": {
     "/": {
@@ -17,6 +18,26 @@
         "responses": {
           "200": {
             "description": "OK"
+          }
+        }
+      }
+    },
+    "/logout": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/github/callback": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
           }
         }
       }
@@ -124,6 +145,9 @@
         "responses": {
           "204": {
             "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
           },
           "404": {
             "description": "Not Found"
@@ -269,11 +293,154 @@
           "204": {
             "description": "No Content"
           },
+          "400": {
+            "description": "Bad Request"
+          },
           "404": {
             "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/supplies/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "description": "",
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/supplies/{id}": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/employees/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "description": "",
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/employees/{id}": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
           }
         }
       },
@@ -381,6 +548,72 @@
         "notes": {
           "type": "string",
           "example": "Deliver in the afternoon"
+        }
+      }
+    },
+    "Supply": {
+      "type": "object",
+      "properties": {
+        "itemName": {
+          "type": "string",
+          "example": "Cake Molds"
+        },
+        "usage": {
+          "type": "string",
+          "example": "Baking"
+        },
+        "quantity": {
+          "type": "number",
+          "example": 10
+        },
+        "unit": {
+          "type": "string",
+          "example": "pieces"
+        },
+        "supplierName": {
+          "type": "string",
+          "example": "Bakery Tools Co."
+        },
+        "lastReorderDate": {
+          "type": "string",
+          "example": "2026-02-01"
+        },
+        "isDurable": {
+          "type": "boolean",
+          "example": true
+        }
+      }
+    },
+    "Employee": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string",
+          "example": "Alejandro"
+        },
+        "lastName": {
+          "type": "string",
+          "example": "Perez"
+        },
+        "email": {
+          "type": "string",
+          "example": "alejandro@bakery.com"
+        },
+        "staffRole": {
+          "type": "string",
+          "example": "Pastry Chef"
+        },
+        "hireDate": {
+          "type": "string",
+          "example": "2026-01-15"
+        },
+        "salaryPerMonth": {
+          "type": "number",
+          "example": 2500
+        },
+        "phoneNumber": {
+          "type": "string",
+          "example": "+58-428-555-0123"
         }
       }
     }
