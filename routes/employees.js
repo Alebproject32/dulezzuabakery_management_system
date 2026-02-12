@@ -1,9 +1,6 @@
 const router = require("express").Router();
 const employeesController = require("../controllers/employees");
-const {
-  employeeValidationRules,
-  validate,
-} = require("../middleware/validate.js");
+const { employeeValidationRules, validate } = require("../middleware/validate");
 const { isAuthenticated } = require("../middleware/authenticate");
 
 router.get("/", employeesController.getAllEmployeesOfDulezzubakery);

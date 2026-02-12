@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const suppliesController = require("../controllers/supplies");
-const supplyValidationRules = require("../middleware/validate");
-const { validate } = require("../middleware/validate");
+const { supplyValidationRules, validate } = require("../middleware/validate");
 const { isAuthenticated } = require("../middleware/authenticate");
 
 router.get("/", suppliesController.getAllSuppliesToBreadsAndCakes);
