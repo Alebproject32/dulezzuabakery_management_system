@@ -1,6 +1,6 @@
 const { response } = require("express");
 
-const isAuthenticated = (request, responseº, next) => {
+const isAuthenticated = (request, response, next) => {
   if (request.session.user === undefined) {
     return response
       .status(401)
