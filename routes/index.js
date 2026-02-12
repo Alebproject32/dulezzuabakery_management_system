@@ -17,7 +17,6 @@ router.use("/inventory", require("./inventory"));
 router.use("/orders", require("./orders"));
 router.use("/supplies", require("./supplies"));
 router.use("/employees", require("./employees"));
-router.use("/", require("./swagger"));
 
 router.get("/logout", function (request, response, next) {
   request.logout(function (err) {
