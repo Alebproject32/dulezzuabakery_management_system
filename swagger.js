@@ -10,6 +10,12 @@ const doc = {
   },
   host: "dulezzuabakery-management-system.onrender.com",
   schemes: ["https", "http"],
+  tags: [
+    { name: "Inventory", description: "Management of bakery items" },
+    { name: "Orders", description: "Customer orders" },
+    { name: "Supplies", description: "Raw materials and tools" },
+    { name: "Employees", description: "Staff information" },
+  ],
   definitions: {
     Inventory: {
       itemName: "wheat flour",

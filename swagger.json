@@ -7,6 +7,24 @@
   },
   "host": "dulezzuabakery-management-system.onrender.com",
   "basePath": "/",
+  "tags": [
+    {
+      "name": "Inventory",
+      "description": "Management of bakery items"
+    },
+    {
+      "name": "Orders",
+      "description": "Customer orders"
+    },
+    {
+      "name": "Supplies",
+      "description": "Raw materials and tools"
+    },
+    {
+      "name": "Employees",
+      "description": "Staff information"
+    }
+  ],
   "schemes": [
     "https",
     "http"
@@ -44,6 +62,9 @@
     },
     "/inventory/": {
       "get": {
+        "tags": [
+          "Inventory"
+        ],
         "description": "",
         "produces": [
           "application/json"
@@ -182,6 +203,9 @@
     },
     "/orders/": {
       "get": {
+        "tags": [
+          "Orders"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -329,6 +353,9 @@
     },
     "/supplies/": {
       "get": {
+        "tags": [
+          "Supplies"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -399,6 +426,9 @@
     },
     "/employees/": {
       "get": {
+        "tags": [
+          "Employees"
+        ],
         "description": "",
         "responses": {
           "200": {

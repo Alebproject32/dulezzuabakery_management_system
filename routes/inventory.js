@@ -8,9 +8,10 @@ const {
 } = require("../middleware/validate");
 const { isAuthenticated } = require("../middleware/authenticate");
 
-// #swagger.tags = ['Inventory']
-
-router.get("/", inventoryController.getAllArticles);
+router.get("/", (request, response) => {
+  // #swagger.tags = ['Inventory']
+  inventoryController.getAllArticles(request, response);
+});
 router.post(
   "/",
   isAuthenticated,

@@ -4,13 +4,15 @@ const ordersController = require("../controllers/orders");
 const { orderValidationRules, validate } = require("../middleware/validate");
 const { isAuthenticated } = require("../middleware/authenticate");
 
-// #swagger.tags = ['Order']
 /* #swagger.parameters['body'] = {
       in: 'body',
       description: 'Informatión about new order',
       schema: { $ref: '#/definitions/Order' }
 } */
-router.get("/", ordersController.getAllOrdersByMyClients);
+router.get("/", (request, response) => {
+  // #swagger.tags = ['Orders']
+  ordersController.getAllOrdersByMyClients(request, response);
+});
 router.post(
   "/",
   isAuthenticated,
