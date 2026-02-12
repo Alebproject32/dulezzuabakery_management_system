@@ -9,6 +9,7 @@ const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger.json");
 const passport = require("passport");
 const session = require("express-session");
+require("./middleware/passport");
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -50,3 +51,5 @@ app.get("/", (request, response) =>
 app.listen(port, () => {
   console.log(`I can see the server is running on port ${port}`);
 });
+
+module.exports = app;
