@@ -4,7 +4,7 @@ const ordersController = require("../controllers/orders");
 const { orderValidationRules, validate } = require("../middleware/validate");
 const { isAuthenticated } = require("../middleware/authenticate");
 
-// #swagger.tags = ['Orders']
+// #swagger.tags = ['Order']
 /* #swagger.parameters['body'] = {
       in: 'body',
       description: 'Informatión about new order',

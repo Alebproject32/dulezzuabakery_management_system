@@ -3,7 +3,7 @@ const employeesController = require("../controllers/employees");
 const { employeeValidationRules, validate } = require("../middleware/validate");
 const { isAuthenticated } = require("../middleware/authenticate");
 
-// #swagger.tags = ['Employees']
+// #swagger.tags = ['Employee']
 router.get("/", employeesController.getAllEmployeesOfDulezzubakery);
 
 // Here I want to apply the Validation rule to access information
