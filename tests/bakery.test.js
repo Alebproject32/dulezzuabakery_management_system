@@ -38,4 +38,11 @@ describe("Bakery API Integration Tests", () => {
       expect(response.body[0]).toHaveProperty("firstName");
     }
   });
+
+  // My Database close successfully after executing of all collections
+  afterAll(async () => {
+    const mongoose = require("mongoose");
+    await mongoose.connection.close();
+    console.log("Database connection closed for testing safety.");
+  });
 });
