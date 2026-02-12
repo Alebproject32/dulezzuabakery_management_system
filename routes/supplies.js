@@ -3,10 +3,13 @@ const suppliesController = require("../controllers/supplies");
 const { supplyValidationRules, validate } = require("../middleware/validate");
 const { isAuthenticated } = require("../middleware/authenticate");
 
-router.get("/", (request, response) => {
-  // #swagger.tags = ['Supplies']
-  suppliesController.getAllSuppliesToBreadsAndCakes(request, response);
-});
+//router.get("/", (request, response) => {
+// #swagger.tags = ['Supplies']
+//suppliesController.getAllSuppliesToBreadsAndCakes(request, response);
+//});
+
+// #swagger.tags = ['Supplies']
+router.get("/", suppliesController.getAllSuppliesToBreadsAndCakes);
 router.post(
   "/",
   isAuthenticated,
