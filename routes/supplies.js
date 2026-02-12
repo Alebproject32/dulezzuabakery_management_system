@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const suppliesController = require("../controllers/supplies");
-const supplyValidationRules = require("../middliware/validate");
+const supplyValidationRules = require("../middleware/validate");
 const { validate } = require("../models/inventory");
 const { isAuthenticated } = require("../middleware/authenticate");
 

@@ -2,7 +2,10 @@
 const express = require("express");
 const router = express.Router();
 const inventoryController = require("../controllers/inventory");
-const { inventoryValidationRules, validate } = require("/middleware/validate");
+const {
+  inventoryValidationRules,
+  validate,
+} = require("../middleware/validate");
 const { isAuthenticated } = require("../middleware/authenticate");
 
 // #swagger.tags = ['Inventory']
