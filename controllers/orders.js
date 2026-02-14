@@ -19,7 +19,7 @@ const createOrderByMyClients = async (request, response) => {
   /* #swagger.parameters['body'] = {
     in: 'body',
     description: 'Add new item',
-    schema: { $ref: '#/definitions/Orders' }
+    schema: { $ref: '#/definitions/Order' }
 } */
   try {
     const newOrderByMyClient = new Orders({
@@ -50,7 +50,7 @@ const updateOrderByMyClient = async (request, response) => {
   /* #swagger.parameters['body'] = {
     in: 'body',
     description: 'Update existing item',
-    schema: { $ref: '#/definitions/Orders' }
+    schema: { $ref: '#/definitions/Order' }
 } */
   try {
     const orderId = request.params.id;

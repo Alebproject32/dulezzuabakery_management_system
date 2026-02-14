@@ -16,7 +16,7 @@ const createSupplyToBreadsAndCakes = async (request, response) => {
   /* #swagger.parameters['body'] = {
     in: 'body',
     description: 'Add new item',
-    schema: { $ref: '#/definitions/Supplies' }
+    schema: { $ref: '#/definitions/Supply' }
 } */
   try {
     const newSupply = new Supplies(request.body);
@@ -34,7 +34,7 @@ const updateSupplyToBreadsAndCakes = async (request, response) => {
   /* #swagger.parameters['body'] = {
     in: 'body',
     description: 'Update existing item',
-    schema: { $ref: '#/definitions/Supplies' }
+    schema: { $ref: '#/definitions/Supply' }
 } */
   try {
     const id = request.params.id;
