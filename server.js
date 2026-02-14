@@ -17,7 +17,14 @@ const port = process.env.PORT || 8080;
 
 // This is my Middleware
 app.use(bodyParser.json());
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+  }),
+);
 
+app.set("trust proxy", 1);
 app.use(
   session({
     secret: "secret",
@@ -26,7 +33,7 @@ app.use(
     cookie: {
       secure: true,
       sameSite: "none",
-      maxAge: 24 * 60 * 60 * 1000,
+      httpOnly: true,
     },
   }),
 );
@@ -34,12 +41,6 @@ app.use(
 // I am using here to initialize my session with Passport
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(
-  cors({
-    origin: true,
-    credentials: true,
-  }),
-);
 
 // Immediate connection to my database
 connectDB();
