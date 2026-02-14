@@ -10,7 +10,7 @@
   "tags": [
     {
       "name": "Auth",
-      "description": "My login in Database of DulezzuaBakery Management System"
+      "description": "Authentication and Session Management"
     },
     {
       "name": "Inventory",
@@ -29,22 +29,19 @@
       "description": "Staff information"
     }
   ],
-  "schemes": [
-    "https",
-    "http"
-  ],
+  "schemes": ["https", "http"],
   "securityDefinitions": {
     "Authorization": {
       "type": "apiKey",
       "name": "Authorization",
       "in": "header",
-      "description": "Please clic on your GitHub account boton to activate your session."
+      "description": "Please click on your GitHub account button to activate your session."
     }
   },
   "paths": {
     "/": {
       "get": {
-        "description": "",
+        "description": "API Root",
         "responses": {
           "200": {
             "description": "OK"
@@ -54,135 +51,33 @@
     },
     "/logout": {
       "get": {
-        "tags": [
-          "Auth"
-        ],
-        "description": "",
+        "tags": ["Auth"],
+        "description": "Log out from the system",
         "responses": {
           "default": {
-            "description": ""
+            "description": "Logged out successfully"
           }
         }
       }
     },
     "/github/callback": {
       "get": {
-        "tags": [
-          "Auth"
-        ],
-        "description": "",
+        "tags": ["Auth"],
+        "description": "GitHub OAuth Callback",
         "responses": {
           "default": {
-            "description": ""
+            "description": "Authentication redirect"
           }
         }
       }
     },
     "/inventory/": {
       "get": {
-        "tags": [
-          "Inventory"
-        ],
-        "description": "",
-        "produces": [
-          "application/json"
-        ],
+        "tags": ["Inventory"],
+        "produces": ["application/json"],
         "responses": {
           "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        },
-        "security": [
-          {
-            "openid": []
-          }
-        ]
-      },
-      "post": {
-        "tags": [
-          "Inventory"
-        ],
-        "description": "",
-        "responses": {
-          "400": {
-            "description": "Bad Request"
-          }
-        },
-        "security": [
-          {
-            "openid": []
-          }
-        ]
-      }
-    },
-    "/inventory/{id}": {
-      "put": {
-        "tags": [
-          "Inventory"
-        ],
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Bad Request"
-          }
-        },
-        "security": [
-          {
-            "openid": []
-          }
-        ]
-      },
-      "delete": {
-        "tags": [
-          "Inventory"
-        ],
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        },
-        "security": [
-          {
-            "openid": []
-          }
-        ]
-      }
-    },
-    "/orders/": {
-      "get": {
-        "tags": [
-          "Orders"
-        ],
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
+            "description": "List of inventory items retrieved"
           },
           "500": {
             "description": "Internal Server Error"
@@ -195,13 +90,116 @@
         ]
       },
       "post": {
-        "tags": [
-          "Orders"
+        "tags": ["Inventory"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Inventory"
+            }
+          }
         ],
-        "description": "",
         "responses": {
+          "201": {
+            "description": "Item created"
+          },
           "400": {
             "description": "Bad Request"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/inventory/{id}": {
+      "put": {
+        "tags": ["Inventory"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Inventory"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Updated"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": ["Inventory"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Deleted"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/orders/": {
+      "get": {
+        "tags": ["Orders"],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      },
+      "post": {
+        "tags": ["Orders"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Order"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
           }
         },
         "security": [
@@ -213,23 +211,23 @@
     },
     "/orders/{id}": {
       "put": {
-        "tags": [
-          "Orders"
-        ],
-        "description": "",
+        "tags": ["Orders"],
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Order"
+            }
           }
         ],
-        "responses": {
-          "400": {
-            "description": "Bad Request"
-          }
-        },
         "security": [
           {
             "Authorization": []
@@ -237,10 +235,7 @@
         ]
       },
       "delete": {
-        "tags": [
-          "Orders"
-        ],
-        "description": "",
+        "tags": ["Orders"],
         "parameters": [
           {
             "name": "id",
@@ -249,17 +244,6 @@
             "type": "string"
           }
         ],
-        "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        },
         "security": [
           {
             "Authorization": []
@@ -269,109 +253,10 @@
     },
     "/supplies/": {
       "get": {
-        "tags": [
-          "Supplies"
-        ],
-        "description": "",
+        "tags": ["Supplies"],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        },
-        "security": [
-          {
-            "openid": []
-          }
-        ]
-      },
-      "post": {
-        "tags": [
-          "Supplies"
-        ],
-        "description": "",
-        "responses": {
-          "400": {
-            "description": "Bad Request"
-          }
-        },
-        "security": [
-          {
-            "openid": []
-          }
-        ]
-      }
-    },
-    "/supplies/{id}": {
-      "put": {
-        "tags": [
-          "Supplies"
-        ],
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Bad Request"
-          }
-        },
-        "security": [
-          {
-            "openid": []
-          }
-        ]
-      },
-      "delete": {
-        "tags": [
-          "Supplies"
-        ],
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        },
-        "security": [
-          {
-            "openid": []
-          }
-        ]
-      }
-    },
-    "/employees/": {
-      "get": {
-        "tags": [
-          "Employees"
-        ],
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "security": [
@@ -381,16 +266,95 @@
         ]
       },
       "post": {
-        "tags": [
-          "Employees"
+        "tags": ["Supplies"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Supply"
+            }
+          }
         ],
-        "description": "",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/supplies/{id}": {
+      "put": {
+        "tags": ["Supplies"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Supply"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": ["Supplies"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/employees/": {
+      "get": {
+        "tags": ["Employees"],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      },
+      "post": {
+        "tags": ["Employees"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Employee"
+            }
+          }
+        ],
         "responses": {
           "201": {
             "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
           }
         },
         "security": [
@@ -402,29 +366,23 @@
     },
     "/employees/{id}": {
       "put": {
-        "tags": [
-          "Employees"
-        ],
-        "description": "",
+        "tags": ["Employees"],
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Employee"
+            }
           }
         ],
-        "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        },
         "security": [
           {
             "Authorization": []
@@ -432,10 +390,7 @@
         ]
       },
       "delete": {
-        "tags": [
-          "Employees"
-        ],
-        "description": "",
+        "tags": ["Employees"],
         "parameters": [
           {
             "name": "id",
@@ -444,17 +399,6 @@
             "type": "string"
           }
         ],
-        "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        },
         "security": [
           {
             "Authorization": []
