@@ -21,13 +21,24 @@ app.use(
   session({
     secret: "secret",
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
+    cookie: {
+      secure: true,
+      sameSite: "none",
+      maxAge: 24 * 60 * 60 * 1000,
+    },
   }),
 );
 
 // I am using here to initialize my session with Passport
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+  }),
+);
 
 // Immediate connection to my database
 connectDB();
