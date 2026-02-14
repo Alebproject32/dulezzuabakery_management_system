@@ -14,8 +14,8 @@ const EmployeesDulezzuabakery = new mongoose.Schema(
   {
     // Automatically manages createdAt and updatedAt fields
     timestamps: true,
-    collection: "Employees", // Explicitly naming of the collection
+    collection: "employees", // Explicitly naming of the collection
   },
 );
 
-module.exports = mongoose.model("Employees", EmployeesDulezzuabakery);
+module.exports = mongoose.model("employees", EmployeesDulezzuabakery);
