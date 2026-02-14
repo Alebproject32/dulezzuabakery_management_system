@@ -42,7 +42,12 @@ router.get(
   }),
   (request, response) => {
     request.session.user = request.user;
-    response.redirect("/");
+    request.session.save((err) => {
+      if (err) {
+        return response.redirect("/api-docs");
+      }
+      response.redirect("/");
+    });
   },
 );
 
