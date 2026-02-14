@@ -1,6 +1,11 @@
 const Employees = require("../models/employees");
 
+/**
+ * GET all employees
+ */
 const getAllEmployeesOfDulezzubakery = async (request, response) => {
+  // #swagger.tags = ['Employees']
+  // #swagger.summary = 'Get all employees'
   try {
     const result = await Employees.find();
     response.status(200).json(result);
@@ -9,40 +14,82 @@ const getAllEmployeesOfDulezzubakery = async (request, response) => {
   }
 };
 
+/**
+ * POST a new employee
+ */
 const createEmployeeToDulezzuabakery = async (request, response) => {
+  // #swagger.tags = ['Employees']
+  // #swagger.summary = 'Create a new employee'
+  /* #swagger.parameters['body'] = {
+        in: 'body',
+        description: 'Employee details',
+        required: true,
+        schema: { $ref: '#/definitions/Employee' }
+  } */
   try {
     const newEmployee = new Employees(request.body);
     const savedEmployee = await newEmployee.save();
+    // #swagger.responses[201] = { description: 'Employee created successfully' }
     response.status(201).json(savedEmployee);
   } catch (err) {
     response.status(400).json({ message: err.message });
   }
 };
 
+/**
+ * PUT - Update employee
+ */
 const updateEmployeeDataOfDulezzuabakery = async (request, response) => {
+  // #swagger.tags = ['Employees']
+  // #swagger.summary = 'Update an existing employee'
+  /* #swagger.parameters['body'] = {
+        in: 'body',
+        description: 'Updated employee information',
+        required: true,
+        schema: { $ref: '#/definitions/Employee' }
+  } */
   try {
-    const idemployee = request.params.id;
+    const idemployee = request.params.id.trim();
     const result = await Employees.findByIdAndUpdate(idemployee, request.body, {
       new: true,
+      runValidators: true,
     });
-    if (!result)
+
+    if (!result) {
+      // #swagger.responses[404] = { description: 'Employee not found' }
       return response
         .status(404)
-        .json({ message: "Stop, This Employee doesn`t exist." });
-    response.status(204).send();
+        .json({ message: "Stop, This Employee doesn't exist." });
+    }
+
+    // #swagger.responses[200] = { description: 'Employee updated successfully', schema: { $ref: '#/definitions/Employee' } }
+    response.status(200).json(result);
   } catch (err) {
     response.status(400).json({ message: err.message });
   }
 };
 
+/**
+ * DELETE - Remove employee
+ */
 const deleteEmployeeDataOfDulezzuabakery = async (request, response) => {
+  // #swagger.tags = ['Employees']
+  // #swagger.summary = 'Delete an employee by ID'
   try {
-    const result = await Employees.findByIdAndDelete(request.params.id);
-    if (!result)
+    const idemployee = request.params.id.trim();
+    const result = await Employees.findByIdAndDelete(idemployee);
+
+    if (!result) {
+      // #swagger.responses[404] = { description: 'Employee not found' }
       return response
         .status(404)
         .json({ message: "Impossible to delete data of Employee." });
-    response.status(204).send();
+    }
+
+    // #swagger.responses[200] = { description: 'Employee deleted successfully' }
+    response
+      .status(200)
+      .json({ message: "Employee deleted successfully from DulezzuaBakery." });
   } catch (err) {
     response.status(500).json({ message: err.message });
   }
