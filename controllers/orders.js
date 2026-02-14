@@ -5,6 +5,7 @@ const Orders = require("../models/orders");
 const getAllOrdersByMyClients = async (request, response) => {
   try {
     const ordersByClient = await Orders.find();
+    // #swagger.responses[200] = { description: 'Success operation' }
     response.status(200).json(ordersByClient);
   } catch (err) {
     response.status(500).json({ message: err.message });
@@ -13,12 +14,12 @@ const getAllOrdersByMyClients = async (request, response) => {
 
 // Second endpoint POST
 const createOrderByMyClients = async (request, response) => {
-  // #swagger.tags = ['Order']
+  // #swagger.tags = ['Orders']
   // #swagger.summary = 'Create new item'
   /* #swagger.parameters['body'] = {
     in: 'body',
     description: 'Add new item',
-    schema: { $ref: '#/definitions/Order' }
+    schema: { $ref: '#/definitions/Orders' }
 } */
   try {
     const newOrderByMyClient = new Orders({
@@ -35,6 +36,7 @@ const createOrderByMyClients = async (request, response) => {
     });
 
     const savedOrderByMyClient = await newOrderByMyClient.save();
+    // #swagger.responses[201] = { description: 'Magnificient budy' }
     response.status(201).json(savedOrderByMyClient);
   } catch (err) {
     response.status(400).json({ message: err.message });
@@ -43,12 +45,12 @@ const createOrderByMyClients = async (request, response) => {
 
 // Third endpoint PUT to update any information in my orders of DulezzuaBakery Management System
 const updateOrderByMyClient = async (request, response) => {
-  // #swagger.tags = ['Order']
+  // #swagger.tags = ['Orders']
   // #swagger.summary = 'Update item'
   /* #swagger.parameters['body'] = {
     in: 'body',
     description: 'Update existing item',
-    schema: { $ref: '#/definitions/Order' }
+    schema: { $ref: '#/definitions/Orders' }
 } */
   try {
     const orderId = request.params.id;
@@ -73,6 +75,7 @@ const updateOrderByMyClient = async (request, response) => {
       return response
         .status(404)
         .json({ message: "Your order was missing because I can´t find it." });
+    // #swagger.responses[204] = { description: 'Success operation here' }
     response.status(204).send();
   } catch (err) {
     response.status(500).json({ message: err.message });
@@ -90,6 +93,7 @@ const deleteOrderByMyClient = async (request, response) => {
         message:
           "In this occassion It´s not possible to find your order partner.",
       });
+    // #swagger.responses[204] = { description: 'All is under control' }
     response.status(204).send();
   } catch (err) {
     response.status(500).json({ message: err.message });

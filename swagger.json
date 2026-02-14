@@ -190,7 +190,7 @@
         "description": "",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Success operation"
           },
           "500": {
             "description": "Internal Server Error"
@@ -265,7 +265,7 @@
         ],
         "responses": {
           "204": {
-            "description": "No Content"
+            "description": "All is under control"
           },
           "401": {
             "description": "Unauthorized"
@@ -292,7 +292,7 @@
         "description": "",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Successfully made it friend."
           },
           "500": {
             "description": "Internal Server Error"
@@ -367,7 +367,7 @@
         ],
         "responses": {
           "204": {
-            "description": "No Content"
+            "description": "Success operation"
           },
           "401": {
             "description": "Unauthorized"
