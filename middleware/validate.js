@@ -1,5 +1,6 @@
 const { body, validationResult } = require("express-validator");
 
+// Rules for Inventory: keeping my items consistent
 const inventoryValidationRules = () => {
   return [
     body("itemName").notEmpty().withMessage("Item name is required"),
@@ -9,6 +10,7 @@ const inventoryValidationRules = () => {
   ];
 };
 
+// Rules for Orders: ensuring customers data is correct
 const orderValidationRules = () => {
   return [
     body("customerName").notEmpty().withMessage("Customer name is required"),
@@ -23,6 +25,7 @@ const orderValidationRules = () => {
   ];
 };
 
+// Rules for Supplies: baking tools and raw materials
 const supplyValidationRules = () => {
   return [
     body("itemName").notEmpty().withMessage("Item name is required"),
@@ -31,6 +34,7 @@ const supplyValidationRules = () => {
   ];
 };
 
+// Rules for Employees: staff information management
 const employeeValidationRules = () => {
   return [
     body("firstName").notEmpty().withMessage("First name is required"),
@@ -42,12 +46,21 @@ const employeeValidationRules = () => {
   ];
 };
 
+// The executioner: this function checks if any of the rules above failed
 const validate = (request, response, next) => {
   const errors = validationResult(request);
   if (errors.isEmpty()) {
     return next();
   }
-  return response.status(400).json({ errors: errors.array() });
+
+  // Format the errors so they look clean in the API response
+  const extractedErrors = [];
+  errors.array().map((err) => extractedErrors.push({ [err.path]: err.msg }));
+
+  return response.status(400).json({
+    message: "Validation failed for DulezzuaBakery data.",
+    errors: extractedErrors,
+  });
 };
 
 module.exports = {

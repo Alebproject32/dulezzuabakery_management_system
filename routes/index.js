@@ -3,20 +3,24 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 
-// Here I can find my specific routes of collections in my database
-const inventory = require("./inventory");
-const orders = require("./orders");
-
 // Welcome of routes in my Project
 router.get("/", (request, response) => {
   response.send("DulezzuaBakery Management System - API Online");
 });
 
 // Gathering all my routes
+router.use("/", require("./swagger")); // Ensure your swagger routes are loaded
 router.use("/inventory", require("./inventory"));
 router.use("/orders", require("./orders"));
 router.use("/supplies", require("./supplies"));
 router.use("/employees", require("./employees"));
+
+// Login route - This starts the GitHub Magic
+router.get(
+  "/login",
+  passport.authenticate("github", { scope: ["user:email"] }),
+  /* #swagger.tags = ['Auth'] */ (req, res) => {},
+);
 
 router.get(
   "/logout",
@@ -31,9 +35,10 @@ router.get(
 );
 
 router.get(
-  "/github/callback" /* #swagger.tags = ['Auth'] */,
+  "/github/callback",
+  /* #swagger.tags = ['Auth'] */
   passport.authenticate("github", {
-    failureRedirect: "api-docs",
+    failureRedirect: "/api-docs",
     session: true,
   }),
   (request, response) => {
@@ -41,4 +46,5 @@ router.get(
     response.redirect("/");
   },
 );
+
 module.exports = router;

@@ -11,7 +11,8 @@ const connectDB = async () => {
       "Wow, You are a wonderful software development because now you are connect to MongoDB. ",
     );
   } catch (err) {
-    console.err(
+    // I Fixed and documented a changed console.err to console.error
+    console.error(
       "Watch out, You are not connecting to MongoDB budy: ",
       err.message,
     );

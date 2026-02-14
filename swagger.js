@@ -9,21 +9,18 @@ const doc = {
       "This is my final project of course CSE341 and calling Management System for DulezzuaBakery - Inventory, Orders, Supplies and Employees",
   },
   host: "dulezzuabakery-management-system.onrender.com",
-  schemes: ["https"],
+  schemes: ["https", "http"], // Added http for local testing flexibility
   securityDefinitions: {
     Authorization: {
       type: "apiKey",
       name: "Authorization",
       in: "header",
       description:
-        "Please clic on your GitHub account boton to activate your session.",
+        "Please click on your GitHub account button to activate your session. Copy your session token if needed.",
     },
   },
   tags: [
-    {
-      name: "Auth",
-      description: "My login in Database of DulezzuaBakery Management System",
-    },
+    { name: "Auth", description: "Login and Session management" },
     { name: "Inventory", description: "Management of bakery items" },
     { name: "Orders", description: "Customer orders" },
     { name: "Supplies", description: "Raw materials and tools" },
@@ -71,6 +68,9 @@ const doc = {
 };
 
 const outputFile = "./swagger.json";
-const endpointsFiles = ["./server.js"];
+const endpointsFiles = ["./routes/index.js"];
 
-swaggerAutogen(outputFile, endpointsFiles, doc);
+// Generating the documentation
+swaggerAutogen(outputFile, endpointsFiles, doc).then(() => {
+  console.log("Swagger JSON has been generated successfully!");
+});

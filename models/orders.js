@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+// Schema for Orders - Tracking customer purchases in DulezzuaBakery
 const OrderByMyClient = new mongoose.Schema({
   customerName: { type: String, required: true },
   customerEmail: { type: String, required: true },
@@ -10,6 +11,7 @@ const OrderByMyClient = new mongoose.Schema({
   paymentMethod: { type: String, required: true },
   article: [
     {
+      // Using Schema.Types.ObjectId would allow you to link directly to the Inventory model
       articleId: { type: String, required: true },
       quantity: { type: Number, required: true },
     },

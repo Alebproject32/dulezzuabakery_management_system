@@ -10,32 +10,36 @@ const { isAuthenticated } = require("../middleware/authenticate");
 
 router.get("/", (request, response) => {
   // #swagger.tags = ['Inventory']
-  // #swagger.security = [{ "openid": [] }]
+  // #swagger.security = [{ "Authorization": [] }]
   inventoryController.getAllArticles(request, response);
 });
+
 router.post(
   "/",
   isAuthenticated,
   inventoryValidationRules(),
   validate,
   /* #swagger.tags = ['Inventory'] 
-  // #swagger.security = [{ "openid": [] }] */
+     #swagger.security = [{ "Authorization": [] }] */
   inventoryController.createItemArticle,
 );
+
 router.put(
   "/:id",
   isAuthenticated,
   inventoryValidationRules(),
   validate,
   /* #swagger.tags = ['Inventory'] 
-  // #swagger.security = [{ "openid": [] }] */
+     #swagger.security = [{ "Authorization": [] }] */
   inventoryController.updateArticle,
 );
+
 router.delete(
   "/:id",
   isAuthenticated,
   /* #swagger.tags = ['Inventory'] 
-  // #swagger.security = [{ "openid": [] }] */ inventoryController.deleteArticle,
+     #swagger.security = [{ "Authorization": [] }] */
+  inventoryController.deleteArticle,
 );
 
 module.exports = router;

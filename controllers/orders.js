@@ -3,6 +3,8 @@ const Orders = require("../models/orders");
 
 //First endpoint GET
 const getAllOrdersByMyClients = async (request, response) => {
+  // #swagger.tags = ['Orders']
+  // #swagger.summary = 'Get all orders'
   try {
     const ordersByClient = await Orders.find();
     // #swagger.responses[200] = { description: 'Success operation' }
@@ -17,10 +19,11 @@ const createOrderByMyClients = async (request, response) => {
   // #swagger.tags = ['Orders']
   // #swagger.summary = 'Create new item'
   /* #swagger.parameters['body'] = {
-    in: 'body',
-    description: 'Add new item',
-    schema: { $ref: '#/definitions/Order' }
-} */
+        in: 'body',
+        description: 'Add new item',
+        required: true,
+        schema: { $ref: '#/definitions/Order' }
+  } */
   try {
     const newOrderByMyClient = new Orders({
       customerName: request.body.customerName,
@@ -46,14 +49,15 @@ const createOrderByMyClients = async (request, response) => {
 // Third endpoint PUT to update any information in my orders of DulezzuaBakery Management System
 const updateOrderByMyClient = async (request, response) => {
   // #swagger.tags = ['Orders']
-  // #swagger.summary = 'Update item'
+  // #swagger.summary = 'Update existing order'
   /* #swagger.parameters['body'] = {
-    in: 'body',
-    description: 'Update existing item',
-    schema: { $ref: '#/definitions/Order' }
-} */
+        in: 'body',
+        description: 'Update existing item',
+        required: true,
+        schema: { $ref: '#/definitions/Order' }
+  } */
   try {
-    const orderId = request.params.id;
+    const orderId = request.params.id.trim(); // Trim added for security
     const updatedOrderByMyClient = {
       customerName: request.body.customerName,
       customerEmail: request.body.customerEmail,
@@ -75,8 +79,10 @@ const updateOrderByMyClient = async (request, response) => {
       return response
         .status(404)
         .json({ message: "Your order was missing because I can´t find it." });
-    // #swagger.responses[204] = { description: 'Success operation here' }
-    response.status(204).send();
+
+    // Changed to 200 so you can see "Success operation here" in Swagger
+    // #swagger.responses[200] = { description: 'Success operation here' }
+    response.status(200).json(result);
   } catch (err) {
     response.status(500).json({ message: err.message });
   }
@@ -84,17 +90,23 @@ const updateOrderByMyClient = async (request, response) => {
 
 // Fourth endpoint DELETE of any orders in dulezzuaBakery Management System
 const deleteOrderByMyClient = async (request, response) => {
+  // #swagger.tags = ['Orders']
+  // #swagger.summary = 'Delete order'
   try {
     const deletedOrderByMyClient = await Orders.findByIdAndDelete(
-      request.params.id,
+      request.params.id.trim(),
     );
     if (!deletedOrderByMyClient)
       return response.status(404).json({
         message:
           "In this occassion It´s not possible to find your order partner.",
       });
-    // #swagger.responses[204] = { description: 'All is under control' }
-    response.status(204).send();
+
+    // Changed to 200 so Swagger shows "All is under control"
+    // #swagger.responses[200] = { description: 'All is under control' }
+    response
+      .status(200)
+      .json({ message: "All is under control: Order deleted." });
   } catch (err) {
     response.status(500).json({ message: err.message });
   }
