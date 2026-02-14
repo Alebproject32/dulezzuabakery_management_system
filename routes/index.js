@@ -9,7 +9,6 @@ router.get("/", (request, response) => {
 });
 
 // Gathering all my routes
-router.use("/", require("./swagger")); // Ensure your swagger routes are loaded
 router.use("/inventory", require("./inventory"));
 router.use("/orders", require("./orders"));
 router.use("/supplies", require("./supplies"));
