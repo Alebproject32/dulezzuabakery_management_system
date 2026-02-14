@@ -9,7 +9,7 @@ const doc = {
       "This is my final project of course CSE341 and calling Management System for DulezzuaBakery - Inventory, Orders, Supplies and Employees",
   },
   host: "dulezzuabakery-management-system.onrender.com",
-  schemes: ["https", "http"],
+  schemes: ["https"],
   securityDefinitions: {
     Authorization: {
       type: "apiKey",

@@ -10,6 +10,13 @@ const getAllSuppliesToBreadsAndCakes = async (request, response) => {
 };
 
 const createSupplyToBreadsAndCakes = async (request, response) => {
+  // #swagger.tags = ['Supply']
+  // #swagger.summary = 'Create new item'
+  /* #swagger.parameters['body'] = {
+    in: 'body',
+    description: 'Add new item',
+    schema: { $ref: '#/definitions/Supply' }
+} */
   try {
     const newSupply = new Supplies(request.body);
     const savedSupply = await newSupply.save();
@@ -20,6 +27,13 @@ const createSupplyToBreadsAndCakes = async (request, response) => {
 };
 
 const updateSupplyToBreadsAndCakes = async (request, response) => {
+  // #swagger.tags = ['Supply']
+  // #swagger.summary = 'Update item'
+  /* #swagger.parameters['body'] = {
+    in: 'body',
+    description: 'Update existing item',
+    schema: { $ref: '#/definitions/Supply' }
+} */
   try {
     const id = request.params.id;
     const result = await Supplies.findByIdAndUpdate(id, request.body, {

@@ -17,6 +17,13 @@ const getAllArticles = async (request, response) => {
 
 // Endpoint "POST" here I will create a new article
 const createItemArticle = async (request, response) => {
+  // #swagger.tags = ['Inventory']
+  // #swagger.summary = 'Create new item'
+  /* #swagger.parameters['body'] = {
+    in: 'body',
+    description: 'Add new item',
+    schema: { $ref: '#/definitions/Inventory' }
+} */
   try {
     const newArticle = new Inventory({
       itemName: request.body.itemName,
@@ -39,6 +46,13 @@ const createItemArticle = async (request, response) => {
 
 // Endpoint "PUT"
 const updateArticle = async (request, response) => {
+  // #swagger.tags = ['Inventory']
+  // #swagger.summary = 'Update item'
+  /* #swagger.parameters['body'] = {
+    in: 'body',
+    description: 'Update existing item',
+    schema: { $ref: '#/definitions/Inventory' }
+} */
   try {
     const articleId = request.params.id;
     const updateMyArticleData = {

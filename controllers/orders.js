@@ -13,6 +13,13 @@ const getAllOrdersByMyClients = async (request, response) => {
 
 // Second endpoint POST
 const createOrderByMyClients = async (request, response) => {
+  // #swagger.tags = ['Order']
+  // #swagger.summary = 'Create new item'
+  /* #swagger.parameters['body'] = {
+    in: 'body',
+    description: 'Add new item',
+    schema: { $ref: '#/definitions/Order' }
+} */
   try {
     const newOrderByMyClient = new Orders({
       customerName: request.body.customerName,
@@ -36,6 +43,13 @@ const createOrderByMyClients = async (request, response) => {
 
 // Third endpoint PUT to update any information in my orders of DulezzuaBakery Management System
 const updateOrderByMyClient = async (request, response) => {
+  // #swagger.tags = ['Order']
+  // #swagger.summary = 'Update item'
+  /* #swagger.parameters['body'] = {
+    in: 'body',
+    description: 'Update existing item',
+    schema: { $ref: '#/definitions/Order' }
+} */
   try {
     const orderId = request.params.id;
     const updatedOrderByMyClient = {
@@ -46,7 +60,7 @@ const updateOrderByMyClient = async (request, response) => {
       orderStatus: request.body.orderStatus,
       paymentMethod: request.body.paymentMethod,
       article: [
-        { orderId: request.body.articleId, quantity: request.body.quantity },
+        { articleId: request.body.articleId, quantity: request.body.quantity },
       ],
       notes: request.body.notes,
     };
