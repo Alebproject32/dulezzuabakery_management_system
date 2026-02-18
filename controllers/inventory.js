@@ -39,16 +39,7 @@ const createItemArticle = async (request, response) => {
         schema: { $ref: '#/definitions/Inventory' }
   } */
   try {
-    const newArticle = new Inventory({
-      itemName: request.body.itemName,
-      category: request.body.category,
-      quantity: request.body.quantity,
-      unit: request.body.unit,
-      supplier: request.body.supplier,
-      priceByUnit: request.body.priceByUnit,
-      minStockrequire: request.body.minStockrequire,
-    });
-
+    const newArticle = new Inventory(request.body);
     const result = await newArticle.save();
     // #swagger.responses[201] = { description: 'Amazing' }
     return response.status(201).json(result);
