@@ -10,6 +10,7 @@ const isAuthenticated = (request, response, next) => {
     .status(401)
     .json({ message: "You do not have access. Identify yourself please." });
 };
+next();
 
 module.exports = {
   isAuthenticated,
