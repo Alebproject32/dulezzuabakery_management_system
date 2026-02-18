@@ -19,8 +19,7 @@ const port = process.env.PORT || 8080;
 app.use(bodyParser.json());
 app.use(
   cors({
-    origin: true,
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: (origin, callback) => callback(null, true),
     credentials: true,
   }),
 );
