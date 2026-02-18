@@ -53,6 +53,7 @@ const createItemArticle = async (request, response) => {
     // #swagger.responses[201] = { description: 'Amazing' }
     return response.status(201).json(result);
   } catch (err) {
+    console.error(err);
     return response.status(400).json({
       message: "I think your Article was not created: " + err.message,
     });
