@@ -78,6 +78,7 @@ const validate = (request, response, next) => {
   errors.array().map((err) => extractedErrors.push({ [err.path]: err.msg }));
 
   return response.status(400).json({
+    success: false,
     message: "Validation failed for DulezzuaBakery data.",
     errors: extractedErrors,
   });

@@ -19,7 +19,7 @@ const port = process.env.PORT || 8080;
 app.use(bodyParser.json());
 app.use(
   cors({
-    origin: "https://dulezzuabakery-management-system.onrender.com",
+    origin: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   }),
@@ -29,12 +29,14 @@ app.set("trust proxy", 1);
 app.use(
   session({
     secret: "secret",
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
+    proxy: true,
     cookie: {
       secure: true,
       sameSite: "none",
-      httpOnly: true,
+      httpOnly: false,
+      maxAge: 24 * 60 * 60 * 1000,
     },
   }),
 );
@@ -42,6 +44,19 @@ app.use(
 // I am using here to initialize my session with Passport
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use((request, response, next) => {
+  response.setHeader("Access-Control-Allow-Origin", "*");
+  response.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, OPTIONS",
+  );
+  response.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Z-Key, Authorization",
+  );
+  next();
+});
 
 // Immediate connection to my database
 connectDB();
