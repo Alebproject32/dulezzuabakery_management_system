@@ -19,7 +19,8 @@ const port = process.env.PORT || 8080;
 app.use(bodyParser.json());
 app.use(
   cors({
-    origin: true,
+    origin: "https://dulezzuabakery-management-system.onrender.com",
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   }),
 );
@@ -32,8 +33,8 @@ app.use(
     saveUninitialized: false,
     cookie: {
       secure: true,
-      sameSite: "lax",
-      httpOnly: false,
+      sameSite: "none",
+      httpOnly: true,
     },
   }),
 );
