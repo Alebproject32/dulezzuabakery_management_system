@@ -14,7 +14,7 @@ router.get(
 router.post(
   "/",
   isAuthenticated,
-  employeeValidationRules(),
+  employeeValidationRules,
   validate,
   // #swagger.tags = ['Employees']
   // #swagger.security = [{ "Authorization": [] }]
@@ -23,7 +23,7 @@ router.post(
 router.put(
   "/:id",
   isAuthenticated,
-  employeeValidationRules(),
+  employeeValidationRules,
   validate,
   // #swagger.tags = ['Employees']
   // #swagger.security = [{ "Authorization": [] }]

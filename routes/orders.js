@@ -14,7 +14,7 @@ router.get(
 router.post(
   "/",
   isAuthenticated,
-  orderValidationRules(),
+  orderValidationRules,
   validate,
   /* #swagger.tags = ['Orders'] 
      #swagger.security = [{ "Authorization": [] }] 
@@ -29,7 +29,7 @@ router.post(
 router.put(
   "/:id",
   isAuthenticated,
-  orderValidationRules(),
+  orderValidationRules,
   validate,
   /* #swagger.tags = ['Orders'] 
      #swagger.security = [{ "Authorization": [] }] 

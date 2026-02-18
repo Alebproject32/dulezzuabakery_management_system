@@ -17,7 +17,7 @@ router.get("/", (request, response) => {
 router.post(
   "/",
   isAuthenticated,
-  inventoryValidationRules(),
+  inventoryValidationRules,
   validate,
   /* #swagger.tags = ['Inventory'] 
      #swagger.security = [{ "Authorization": [] }] */
@@ -27,7 +27,7 @@ router.post(
 router.put(
   "/:id",
   isAuthenticated,
-  inventoryValidationRules(),
+  inventoryValidationRules,
   validate,
   /* #swagger.tags = ['Inventory'] 
      #swagger.security = [{ "Authorization": [] }] */

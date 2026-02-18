@@ -84,9 +84,9 @@ const validate = (request, response, next) => {
 };
 
 module.exports = {
-  inventoryRules: inventoryValidationRules(),
-  orderRules: orderValidationRules(),
-  supplyRules: supplyValidationRules(),
-  employeeRules: employeeValidationRules(),
+  inventoryValidationRules,
+  orderValidationRules,
+  supplyValidationRules,
+  employeeValidationRules,
   validate,
 };

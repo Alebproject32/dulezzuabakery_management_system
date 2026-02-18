@@ -13,7 +13,7 @@ router.get(
 router.post(
   "/",
   isAuthenticated,
-  supplyValidationRules(),
+  supplyValidationRules,
   validate,
   /* #swagger.tags = ['Supplies'] 
      #swagger.security = [{ "Authorization": [] }] */
@@ -23,7 +23,7 @@ router.post(
 router.put(
   "/:id",
   isAuthenticated,
-  supplyValidationRules(),
+  supplyValidationRules,
   validate,
   /* #swagger.tags = ['Supplies'] 
      #swagger.security = [{ "Authorization": [] }] */
