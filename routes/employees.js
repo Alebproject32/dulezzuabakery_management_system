@@ -3,11 +3,12 @@ const employeesController = require("../controllers/employees");
 const { employeeValidationRules, validate } = require("../middleware/validate");
 const { isAuthenticated } = require("../middleware/authenticate");
 
-router.get("/", (request, response) => {
+router.get(
+  "/",
   // #swagger.tags = ['Employees']
   // #swagger.security = [{ "Authorization": [] }]
-  employeesController.getAllEmployeesOfDulezzubakery(request, response);
-});
+  employeesController.getAllEmployeesOfDulezzubakery,
+);
 
 // Here I want to apply the Validation rule to access information
 router.post(

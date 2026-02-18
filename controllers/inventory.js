@@ -1,5 +1,6 @@
 // Here it is the Headquarters of all actions inside of Project "DulezzuaBakery Management System"
 const Inventory = require("../models/inventory");
+const { validationResult } = require("express-validator");
 
 // This is my first Endpoint "GET" as I learned along this course
 const getAllArticles = async (request, response) => {
@@ -22,6 +23,15 @@ const getAllArticles = async (request, response) => {
 const createItemArticle = async (request, response) => {
   // #swagger.tags = ['Inventory']
   // #swagger.summary = 'Create new item'
+
+  // Check for validation errors from the middleware
+  const errors = validationResult(request);
+  if (!errors.isEmpty()) {
+    return response.status(400).json({
+      message: "Validation failed for your new article. Please try again.",
+      errors: errors.array(),
+    });
+  }
   /* #swagger.parameters['body'] = {
         in: 'body',
         description: 'Add new item',
@@ -53,6 +63,15 @@ const createItemArticle = async (request, response) => {
 const updateArticle = async (request, response) => {
   // #swagger.tags = ['Inventory']
   // #swagger.summary = 'Update item'
+
+  // Again this is my validation errors from the middleware
+  const errors = validationResult(request);
+  if (!errors.isEmpty()) {
+    return response.status(400).json({
+      message: "In this ocassion validation failed for the update.",
+      errors: errors.array(),
+    });
+  }
   /* #swagger.parameters['body'] = {
         in: 'body',
         description: 'Update existing item',

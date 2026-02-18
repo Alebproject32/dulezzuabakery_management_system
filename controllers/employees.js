@@ -1,5 +1,5 @@
 const Employees = require("../models/employees");
-
+const { validationResult } = require("express-validator");
 /**
  * GET all employees
  */
@@ -10,7 +10,12 @@ const getAllEmployeesOfDulezzubakery = async (request, response) => {
     const result = await Employees.find();
     response.status(200).json(result);
   } catch (err) {
-    response.status(500).json({ message: err.message });
+    response
+      .status(500)
+      .json({
+        message:
+          "Mayday,Mayday this is an internal server error." + err.message,
+      });
   }
 };
 
@@ -20,6 +25,12 @@ const getAllEmployeesOfDulezzubakery = async (request, response) => {
 const createEmployeeToDulezzuabakery = async (request, response) => {
   // #swagger.tags = ['Employees']
   // #swagger.summary = 'Create a new employee'
+
+  // Data Validation Check
+  const errors = validationResult(request);
+  if (!errors.isEmpty()) {
+    return response.status(400).json({ errors: errors.array() });
+  }
   /* #swagger.parameters['body'] = {
         in: 'body',
         description: 'Employee details',
@@ -32,7 +43,9 @@ const createEmployeeToDulezzuabakery = async (request, response) => {
     // #swagger.responses[201] = { description: 'Employee created successfully' }
     response.status(201).json(savedEmployee);
   } catch (err) {
-    response.status(400).json({ message: err.message });
+    response.status(400).json({
+      message: "Error creating employee in this occassion" + err.message,
+    });
   }
 };
 
@@ -42,6 +55,12 @@ const createEmployeeToDulezzuabakery = async (request, response) => {
 const updateEmployeeDataOfDulezzuabakery = async (request, response) => {
   // #swagger.tags = ['Employees']
   // #swagger.summary = 'Update an existing employee'
+
+  // Data Validation Check
+  const errors = validationResult(request);
+  if (!errors.isEmpty()) {
+    return response.status(400).json({ errors: errors.array() });
+  }
   /* #swagger.parameters['body'] = {
         in: 'body',
         description: 'Updated employee information',
@@ -65,7 +84,10 @@ const updateEmployeeDataOfDulezzuabakery = async (request, response) => {
     // #swagger.responses[200] = { description: 'Employee updated successfully', schema: { $ref: '#/definitions/Employee' } }
     response.status(200).json(result);
   } catch (err) {
-    response.status(400).json({ message: err.message });
+    response.status(400).json({
+      message:
+        "Again error updating employee, you need check out." + err.message,
+    });
   }
 };
 
@@ -91,7 +113,9 @@ const deleteEmployeeDataOfDulezzuabakery = async (request, response) => {
       .status(200)
       .json({ message: "Employee deleted successfully from DulezzuaBakery." });
   } catch (err) {
-    response.status(500).json({ message: err.message });
+    response.status(500).json({
+      message: "A little detail internal server error: " + err.message,
+    });
   }
 };
 

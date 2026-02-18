@@ -6,7 +6,16 @@ const inventoryValidationRules = () => {
     body("itemName").notEmpty().withMessage("Item name is required"),
     body("category").notEmpty().withMessage("Category is required"),
     body("quantity").isNumeric().withMessage("Quantity must be a number"),
+    body("unit")
+      .notEmpty()
+      .withMessage("Unit is required, please fill the field."),
+    body("supplier")
+      .notEmpty()
+      .withMessage("Remember you need to fill the field supplier."),
     body("priceByUnit").isNumeric().withMessage("Price must be a number"),
+    body("minStockrequire")
+      .isNumeric()
+      .withMessage("Oops you need to fill the field minStockrequire."),
   ];
 };
 
@@ -15,6 +24,8 @@ const orderValidationRules = () => {
   return [
     body("customerName").notEmpty().withMessage("Customer name is required"),
     body("customerEmail").isEmail().withMessage("Valid email is required"),
+    body("orderDate").notEmpty().withMessage("Valid date is required"),
+    body("deliveryDate").notEmpty().withMessage("Valid date is required"),
     body("totalAmount")
       .isNumeric()
       .withMessage("Total amount must be a number"),
@@ -29,8 +40,16 @@ const orderValidationRules = () => {
 const supplyValidationRules = () => {
   return [
     body("itemName").notEmpty().withMessage("Item name is required"),
+    body("usage").notEmpty().withMessage("Usage is required"),
     body("quantity").isNumeric().withMessage("Quantity must be a number"),
     body("unit").notEmpty().withMessage("Unit is required"),
+    body("supplierName")
+      .notEmpty()
+      .withMessage("Supplier Name is required, please don´t forget."),
+    body("lastReorderDate")
+      .notEmpty()
+      .withMessage("Last Reorder Date is required in this ocassion."),
+    body("isDurable").notEmpty().withMessage("Durable is required"),
   ];
 };
 
@@ -41,6 +60,7 @@ const employeeValidationRules = () => {
     body("lastName").notEmpty().withMessage("Last name is required"),
     body("email").isEmail().withMessage("Must be a valid email address"),
     body("staffRole").notEmpty().withMessage("Role is required"),
+    body("hireDate").notEmpty().withMessage("Date is required"),
     body("salaryPerMonth").isNumeric().withMessage("Salary must be a number"),
     body("phoneNumber").notEmpty().withMessage("Phone number is required"),
   ];
@@ -64,9 +84,9 @@ const validate = (request, response, next) => {
 };
 
 module.exports = {
-  inventoryValidationRules,
-  orderValidationRules,
-  supplyValidationRules,
-  employeeValidationRules,
+  inventoryRules: inventoryValidationRules(),
+  orderRules: orderValidationRules(),
+  supplyRules: supplyValidationRules(),
+  employeeRules: employeeValidationRules(),
   validate,
 };

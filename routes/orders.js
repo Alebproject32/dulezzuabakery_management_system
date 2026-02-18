@@ -4,11 +4,12 @@ const ordersController = require("../controllers/orders");
 const { orderValidationRules, validate } = require("../middleware/validate");
 const { isAuthenticated } = require("../middleware/authenticate");
 
-router.get("/", (request, response) => {
+router.get(
+  "/",
   // #swagger.tags = ['Orders']
   // #swagger.security = [{ "Authorization": [] }]
-  ordersController.getAllOrdersByMyClients(request, response);
-});
+  ordersController.getAllOrdersByMyClients,
+);
 
 router.post(
   "/",

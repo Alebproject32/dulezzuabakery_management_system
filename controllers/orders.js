@@ -1,5 +1,5 @@
-const { response } = require("express");
 const Orders = require("../models/orders");
+const { validationResult } = require("express-validator");
 
 //First endpoint GET
 const getAllOrdersByMyClients = async (request, response) => {
@@ -10,7 +10,10 @@ const getAllOrdersByMyClients = async (request, response) => {
     // #swagger.responses[200] = { description: 'Success operation' }
     response.status(200).json(ordersByClient);
   } catch (err) {
-    response.status(500).json({ message: err.message });
+    response.status(500).json({
+      message:
+        "Wait! Something went wrong retrieving the orders: " + err.message,
+    });
   }
 };
 
@@ -18,6 +21,15 @@ const getAllOrdersByMyClients = async (request, response) => {
 const createOrderByMyClients = async (request, response) => {
   // #swagger.tags = ['Orders']
   // #swagger.summary = 'Create new item'
+
+  // This is my validation error
+  const errors = validationResult(request);
+  if (!errors.isEmpty()) {
+    return response.status(400).json({
+      message: "Validation failed for this new order. Check your data.",
+      errors: errors.array(),
+    });
+  }
   /* #swagger.parameters['body'] = {
         in: 'body',
         description: 'Add new item',
@@ -32,9 +44,7 @@ const createOrderByMyClients = async (request, response) => {
       totalAmount: request.body.totalAmount,
       orderStatus: request.body.orderStatus,
       paymentMethod: request.body.paymentMethod,
-      article: [
-        { articleId: request.body.articleId, quantity: request.body.quantity },
-      ],
+      article: request.body.articleId,
       notes: request.body.notes,
     });
 
@@ -42,7 +52,9 @@ const createOrderByMyClients = async (request, response) => {
     // #swagger.responses[201] = { description: 'Magnificient budy' }
     response.status(201).json(savedOrderByMyClient);
   } catch (err) {
-    response.status(400).json({ message: err.message });
+    response
+      .status(400)
+      .json({ message: "I think your Order was not created: " + err.message });
   }
 };
 
@@ -50,6 +62,14 @@ const createOrderByMyClients = async (request, response) => {
 const updateOrderByMyClient = async (request, response) => {
   // #swagger.tags = ['Orders']
   // #swagger.summary = 'Update existing order'
+
+  const errors = validationResult(request);
+  if (!errors.isEmpty()) {
+    return response.status(400).json({
+      message: "Mayday! Validation failed for the order update.",
+      errors: errors.array(),
+    });
+  }
   /* #swagger.parameters['body'] = {
         in: 'body',
         description: 'Update existing item',
@@ -65,9 +85,7 @@ const updateOrderByMyClient = async (request, response) => {
       totalAmount: request.body.totalAmount,
       orderStatus: request.body.orderStatus,
       paymentMethod: request.body.paymentMethod,
-      article: [
-        { articleId: request.body.articleId, quantity: request.body.quantity },
-      ],
+      article: request.body.articleId,
       notes: request.body.notes,
     };
     const result = await Orders.findByIdAndUpdate(
@@ -84,7 +102,9 @@ const updateOrderByMyClient = async (request, response) => {
     // #swagger.responses[200] = { description: 'Success operation here' }
     response.status(200).json(result);
   } catch (err) {
-    response.status(500).json({ message: err.message });
+    response
+      .status(500)
+      .json({ message: "Internal error updating the order: " + err.message });
   }
 };
 
@@ -108,7 +128,9 @@ const deleteOrderByMyClient = async (request, response) => {
       .status(200)
       .json({ message: "All is under control: Order deleted." });
   } catch (err) {
-    response.status(500).json({ message: err.message });
+    response
+      .status(500)
+      .json({ message: "Mayday! Error deleting the order: " + err.message });
   }
 };
 

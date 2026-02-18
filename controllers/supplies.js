@@ -1,4 +1,5 @@
 const Supplies = require("../models/supplies");
+const { validationResult } = require("express-validator");
 
 const getAllSuppliesToBreadsAndCakes = async (request, response) => {
   // #swagger.tags = ['Supplies']
@@ -8,13 +9,26 @@ const getAllSuppliesToBreadsAndCakes = async (request, response) => {
     // #swagger.responses[200] = { description: 'Successfully made it friend.' }
     response.status(200).json(result);
   } catch (err) {
-    response.status(500).json({ message: err.message });
+    response.status(500).json({
+      message:
+        "Check out! Something went wrong in the supply room: " + err.message,
+    });
   }
 };
 
 const createSupplyToBreadsAndCakes = async (request, response) => {
   // #swagger.tags = ['Supplies']
   // #swagger.summary = 'Create new item'
+
+  // Validation Check for the 100 points
+  const errors = validationResult(request);
+  if (!errors.isEmpty()) {
+    return response.status(400).json({
+      message: "Wait! Validation failed for your new supply.",
+      errors: errors.array(),
+    });
+  }
+
   /* #swagger.parameters['body'] = {
         in: 'body',
         description: 'Add new item',
@@ -27,13 +41,24 @@ const createSupplyToBreadsAndCakes = async (request, response) => {
     // #swagger.responses[201] = { description: 'Success operation' }
     response.status(201).json(savedSupply);
   } catch (err) {
-    response.status(400).json({ message: err.message });
+    response.status(400).json({
+      message: "Mayday! I couldn't create the supply: " + err.message,
+    });
   }
 };
 
 const updateSupplyToBreadsAndCakes = async (request, response) => {
   // #swagger.tags = ['Supplies']
   // #swagger.summary = 'Update item'
+
+  const errors = validationResult(request);
+  if (!errors.isEmpty()) {
+    return response.status(400).json({
+      message: "Check your data! Validation failed for the supply update.",
+      errors: errors.array(),
+    });
+  }
+
   /* #swagger.parameters['body'] = {
         in: 'body',
         description: 'Update existing item',
@@ -41,7 +66,7 @@ const updateSupplyToBreadsAndCakes = async (request, response) => {
         schema: { $ref: '#/definitions/Supply' }
   } */
   try {
-    const id = request.params.id.trim(); // Added trim() for stability
+    const id = request.params.id.trim();
     const result = await Supplies.findByIdAndUpdate(id, request.body, {
       new: true,
       runValidators: true,
@@ -51,11 +76,11 @@ const updateSupplyToBreadsAndCakes = async (request, response) => {
         .status(404)
         .json({ message: "Oops! Supply is not found." });
 
-    // Changed to 200 so Swagger displays your message
-    // #swagger.responses[200] = { description: 'You did it with mastery operation.' }
     response.status(200).json(result);
   } catch (err) {
-    response.status(400).json({ message: err.message });
+    response.status(400).json({
+      message: "Error updating the supply partner: " + err.message,
+    });
   }
 };
 
@@ -70,13 +95,13 @@ const deleteSupplyForever = async (request, response) => {
         .status(404)
         .json({ message: "Wait a minute. Supply is not found." });
 
-    // Changed to 200 so Swagger displays the confirmation
-    // #swagger.responses[200] = { description: 'Success operation' }
     response
       .status(200)
       .json({ message: "Supply deleted forever from DulezzuaBakery." });
   } catch (err) {
-    response.status(500).json({ message: err.message });
+    response.status(500).json({
+      message: "I find an error trying to delete this: " + err.message,
+    });
   }
 };
 
