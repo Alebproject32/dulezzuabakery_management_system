@@ -10,12 +10,9 @@ const getAllEmployeesOfDulezzubakery = async (request, response) => {
     const result = await Employees.find();
     response.status(200).json(result);
   } catch (err) {
-    response
-      .status(500)
-      .json({
-        message:
-          "Mayday,Mayday this is an internal server error." + err.message,
-      });
+    response.status(500).json({
+      message: "Mayday,Mayday this is an internal server error." + err.message,
+    });
   }
 };
 

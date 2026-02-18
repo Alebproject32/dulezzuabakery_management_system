@@ -44,9 +44,10 @@ router.get(
     request.session.user = request.user;
     request.session.save((err) => {
       if (err) {
+        console.error("Session Sqve Error:", err);
         return response.redirect("/api-docs");
       }
-      response.redirect("/");
+      response.redirect("/api-docs");
     });
   },
 );
